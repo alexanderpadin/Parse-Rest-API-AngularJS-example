@@ -1,0 +1,64 @@
+<!-- Facebook Parse REST API + AngularJS example -->
+<!DOCTYPE html>
+<html lang="en" ng-app='my_module'>
+    <head>
+        <title>Facebook Parse Rest API Example</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="my_module.js"></script>
+    </head>
+
+    <body ng-controller="my_ctrl as mc" ng-init="getOrders()">
+        <div class="row" style="margin:10px">
+
+            <div class="col-md-4">
+                <h4>New Order: </h4>
+                <input id="clientNameInput" placeholder="Client Name" type="text" class="form-control"/>
+                <input id="pizzaSizeInput" placeholder="Pizza Size" type="text" class="form-control"/>
+                <input id="cityInput" placeholder="City"  type="text" class="form-control"/>
+                <input id="priceInput" placeholder="Price" type="text" class="form-control"/>
+                <button type="submit" ng-click="addOrder()" class="btn btn-success btn-block">Place Order</button>
+            </div>
+
+            <div class="col-md-8">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Client Name</th>
+                            <th>Pizza Size</th>
+                            <th>City</th>
+                            <th>Price</th>
+                            <td>Actios</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="order in pizzaOrders">
+                            <td>
+                                <div ng-hide="modify_table[order.objectId]">{{order.client_name}}</div>
+                                <div ng-show="modify_table[order.objectId]"><input type="text" class="form-control" ng-model="order.client_name" /></div>
+                            </td>
+                            <td>
+                                <div ng-hide="modify_table[order.objectId]">{{order.pizza_size | uppercase}}</div>
+                                <div ng-show="modify_table[order.objectId]"><input type="text" class="form-control" ng-model="order.pizza_size" /></div>
+                            </td>
+                            <td>
+                                <div ng-hide="modify_table[order.objectId]">{{order.city}}</div>
+                                <div ng-show="modify_table[order.objectId]"><input type="text" class="form-control" ng-model="order.city" /></div>
+                            </td>
+                            <td>
+                                <div ng-hide="modify_table[order.objectId]">{{order.price | currency}}</div>
+                                <div ng-show="modify_table[order.objectId]"><input type="text" class="form-control" ng-model="order.price" /></div>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-default" ng-hide="modify_table[order.objectId]" ng-click="modifyOrder(order)">Modify</button>
+                                <button type="submit" class="btn btn-success" ng-show="modify_table[order.objectId]" ng-click="updateOrder(order)">Update</button>
+                                <button type="submit" class="btn btn-danger" ng-click="removeOrder(order)">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </body>
+</html>
