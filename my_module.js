@@ -102,6 +102,27 @@
         $scope.modifyOrder = function(item){
             $scope.modify_table[item.objectId] = true;
         };
+                    
+        $scope.getQuery = function() {
+            $http({
+                    method: 'GET',
+                    url: 'https://api.parse.com/1/classes/pizza_orders',
+                    headers: {
+                        'X-Parse-Application-Id': '2JZEVI5oBpApKjp2WInn6UE1pGF1s6H2Had6VTxN',
+                        'X-Parse-REST-API-Key': 'Gtcg6ujbg4k11oTmpLPXzQBFCgKQ4LEGp71Xdu6f'
+                    },
+                    params: {
+                        where : {
+                            "client_name":"Alexander",
+                        }
+                    }
+                }).success(function(data, status) {
+                    console.log(data)
+                })
+                .error(function(data, status) {
+                    console.log("Error: " + data.error);
+                });
+        };
 
     }]);
 })();
